@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FirstComponent } from './first/first.component';
-import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
-import { SecondComponent } from './second/second.component';
-import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: 'first-component', component: FirstComponent },
-  { path: 'second-component', component: SecondComponent },
-  { path: 'profile-editor', component: ProfileEditorComponent },
-  { path: 'dynamic-form', component: DynamicFormComponent },
+  { path: '', component: HomeComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({

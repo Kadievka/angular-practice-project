@@ -1,0 +1,33 @@
+.not-found-container{
+  text-align: center;
+  background: url(../../assets/404.jpg) no-repeat center;
+  background-size: auto 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+h1{
+  font-size: 50px;
+  font-family: Corben; color: rgb(175, 2, 2);
+  font-weight: bolder;
+}
+
+span{
+  font-size: 30px;
+  font-family: Corben; color: rgb(123, 133, 177);
+}
+
+p{
+  font-size: 20px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+button{
+  background-color: rgb(123, 133, 177);
+  color: white;
+}
+
+button:hover{
+  background-color: rgb(149, 154, 179);
+}
+
