@@ -24,7 +24,16 @@
 
   </div>
 
-  <!-- <button (click)="updateProfile()">Update Profile</button> -->
+  <div formArraName="aliases">
+    <h2>Aliases</h2>
+    <button (click)="addAlias()">+ Add another alias</button>
+
+    <div *ngFor="let alias of aliases.controls; let i=index">
+      <label for="alias-{{ i }}">Alias: </label>
+      <input type="text" id="alias-{{ i }}" formControlName="i"/>
+    </div>
+
+  </div>
 
   <p>Form Status: {{profileForm.status}}</p>
   <p>Complete the form to enable the button.</p>

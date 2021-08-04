@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { FormControl, FormGroup } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-editor',
@@ -14,17 +13,6 @@ export class ProfileEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // profileForm = new FormGroup({
-  //   firstName: new FormControl(''),
-  //   lastName: new FormControl(''),
-  //   address: new FormGroup({
-  //     street: new FormControl(''),
-  //     city: new FormControl(''),
-  //     state: new FormControl(''),
-  //     zip: new FormControl(''),
-  //   }),
-  // });
-
   profileForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: [''],
@@ -33,19 +21,22 @@ export class ProfileEditorComponent implements OnInit {
       city: [''],
       state: [''],
       zip: [''],
-    })
+    }),
+    aliases: this.formBuilder.array([
+      this.formBuilder.control('')
+    ]),
   });
 
   onSubmit() {
     console.warn(this.profileForm.value);
   }
 
-  // updateProfile(){
-  //   this.profileForm.patchValue({
-  //     firstName: 'Nancy',
-  //     address: {
-  //       street: '123 Drew Street'
-  //     }
-  //   })
-  // }
+  get aliases() {
+    return this.profileForm.get('aliases') as FormArray;
+  }
+
+  addAlias() {
+    this.aliases.push(this.formBuilder.control(''));
+  }
+
 }
