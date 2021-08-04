@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { FirstComponent } from './first/first.component';
 import { SecondComponent } from './second/second.component';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
     FirstComponent,
     SecondComponent,
     ProfileEditorComponent,
+    DynamicFormComponent,
+    DynamicFormQuestionComponent,
   ],
   imports: [
     BrowserModule,
