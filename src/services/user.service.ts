@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from "../app/models/user";
@@ -14,6 +14,12 @@ export class UserService {
     private http: HttpClient
   ) {}
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
+
   private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
       return of(result as T);
@@ -24,14 +30,13 @@ export class UserService {
   prefixUrl = '/users';
 
   getRandomUsers(): Observable<User[]> {
-    console.log(`main api url: ${this.mainUrl}`)
-    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/get-random-users`).pipe(
-      catchError(this.handleError<User[]>('getRandomUsers', []))
+    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/get-random-users`, this.httpOptions).pipe(
+      catchError(this.handleError<User[]>('getRandomUsers', [])),
     );
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/manage-get-users`).pipe(
+    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/manage-get-users`, this.httpOptions).pipe(
       catchError(this.handleError<User[]>('getRandomUsers', []))
     );
   }

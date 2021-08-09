@@ -14,33 +14,38 @@
     </ul>
   </nav>
 
-  <div>
-    <p>registered users: <span>{{ registeredUsers.length }}</span></p>
-  </div>
+  <button (click)="sortUsersDown()">↓</button>
+  <button (click)="sortUsersUp()">↑</button>
 
-  <form>
-    <p>Add a user: <button>+</button></p>
+  <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
+    <p>Add a user:</p>
+    <button type="submit">add</button>
 
     <label for="email">Email:</label>
-    <input type="text" id="email" placeholder="{{randomUser.email}}"/>
+    <input type="text" id="email" formControlName="email"/>
 
     <label for="password">Password:</label>
-    <input type="text" id="password" placeholder="{{randomUser.password}}"/>
+    <input type="password" id="password" formControlName="password"/>
 
     <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" placeholder="{{randomUser.firstName}}"/>
+    <input type="text" id="firstName" formControlName="firstName"/>
 
     <label for="lastName">Last Name:</label>
-    <input type="text" id="email" placeholder="{{randomUser.lastName}}"/>
+    <input type="text" id="lastName" formControlName="lastName"/>
   </form>
 
   <div>
+    <p>registered users: <span>{{ users.length }}</span></p>
+  </div>
+
+  <div>
     <ul>
-      <li *ngFor="let user of registeredUsers" id="user-{{user.id}}">
+      <li *ngFor="let user of users" id="user-{{user.id}}">
+        email: {{ user.id }}
         email: {{ user.email }}
         firstName: {{ user.firstName }}
         lastName: {{ user.lastName }}
-        actions: <button>X</button>
+        actions: <button (click)="deleteUser(user)">X</button>
       </li>
     </ul>
   </div>

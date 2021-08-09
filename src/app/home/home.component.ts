@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserService } from 'src/services/user.service';
 import { User } from '../models/user';
+import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,31 +9,49 @@ import { User } from '../models/user';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private usersService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getUsersFromApi();
+    this.getRandomUsersFromApi();
   }
 
-  token = localStorage.getItem("token");
-
-  registeredUsers: User[] = [];
-
-  //TODO consume another service to reload every time button add is clicked
-  randomUser: User = {
-    id: `${Math.floor(Math.random() * 1000000)}`,
-    firstName: "Ana",
-    lastName: "Gomez",
-    email: "random@email.com",
-    password: '21R$#ewrBRvbw4',
+  sortUsersDown(): void {
+    this.users.sort((a, b) => (parseInt(a.id) - parseInt(b.id)));
   }
 
-  getUsersFromApi(): void {
-    if( this.token ) {
-      this.usersService.getUsers().subscribe(users => this.registeredUsers = users);
-    } else {
-      this.usersService.getRandomUsers().subscribe(users => this.registeredUsers = users);
+  sortUsersUp(): void {
+    this.users.sort((a, b) => (parseInt(b.id) - parseInt(a.id)));
+  }
+
+  newUserForm = new FormGroup({
+    email: new FormControl(''),
+    lastName: new FormControl(''),
+    firstName: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  generateId(userId: string | any ): string {
+    const foundUser = this.users.find(user => user.id === userId);
+    if (foundUser) {
+      userId = this.generateId(`${parseInt(userId) + 1}`);
     }
+    return userId;
+  }
+
+  addUser(): void {
+    const user = {...this.newUserForm.value};
+    user.id = this.generateId(`1`);
+    this.users.unshift(user);
+  }
+
+  deleteUser(user: User): void {
+    this.users = this.users.filter(u => user.id !== u.id);
+  }
+
+  users: User[] = [];
+
+  getRandomUsersFromApi(): void {
+    this.userService.getRandomUsers().subscribe(users => this.users = users);
   }
 
 }

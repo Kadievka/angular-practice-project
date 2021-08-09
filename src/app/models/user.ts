@@ -1,8 +1,8 @@
 export interface User {
   id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
   isBanned?: boolean;
   password?: string;
 }
