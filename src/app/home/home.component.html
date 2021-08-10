@@ -4,83 +4,95 @@
     <a class="navbar-brand brand" routerLink="/">
       <fa-icon [icon]="faCoffee"></fa-icon>
     </a>
-    <div class="left-links">
+    <div class="rigth-links">
       <a class="nav-link" routerLink="/about">About</a>
       <a class="nav-link" routerLink="/documentation">Docs</a>
       <a class="nav-link" routerLink="/login">Login</a>
     </div>
   </nav>
 
-  <div class="users-body">
-
-    <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
-      <p>Add user:</p>
-      <hr />
-      <div class="alerts">
-        <div *ngIf="showErrorEmailExists || newUserForm.controls.email.errors && (newUserForm.controls.email.touched || newUserForm.controls.email.dirty)" class="form-control invalid">
-          <div *ngIf="newUserForm.controls.email.errors?.required">
-            Email is required.
-          </div>
-          <div *ngIf="newUserForm.controls.email.errors?.email">
-            Email is invalid.
-          </div>
-          <div *ngIf="newUserForm.controls.email.errors?.emailExists || (showErrorEmailExists)">
-            Email already exists.
-          </div>
+  <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
+    <p>Add user:</p>
+    <hr />
+    <div class="alerts">
+      <div *ngIf="showErrorEmailExists || newUserForm.controls.email.errors && (newUserForm.controls.email.touched || newUserForm.controls.email.dirty)" class="form-control invalid">
+        <div *ngIf="newUserForm.controls.email.errors?.required">
+          Email is required.
         </div>
-        <div *ngIf="newUserForm.controls.password.errors && (newUserForm.controls.password.touched || newUserForm.controls.password.dirty)" class="form-control invalid">
-          <div *ngIf="newUserForm.controls.password.errors?.required">
-            Password is required.
-          </div>
+        <div *ngIf="newUserForm.controls.email.errors?.email">
+          Email is invalid.
+        </div>
+        <div *ngIf="newUserForm.controls.email.errors?.emailExists || (showErrorEmailExists)">
+          Email already exists.
         </div>
       </div>
-      <div class="add-user-form">
+      <div *ngIf="newUserForm.controls.password.errors && (newUserForm.controls.password.touched || newUserForm.controls.password.dirty)" class="form-control invalid">
+        <div *ngIf="newUserForm.controls.password.errors?.required">
+          Password is required.
+        </div>
+      </div>
+    </div>
+    <div class="add-user-form">
+      <input
+        id="email"
+        type="text"
+        placeholder="Email*"
+        formControlName="email"
+        class="form-control"
+        required
+        (input)="verifyEmailExists()"
+      />
+      <div class="input-group">
         <input
-          id="email"
-          type="text"
-          placeholder="Email*"
-          formControlName="email"
-          class="form-control"
+          id="password"
+          type="{{passwordType}}"
+          placeholder="Password*"
+          formControlName="password"
+          class="form-control password-input"
           required
-          (input)="verifyEmailExists()"
         />
-        <div class="input-group">
-          <input
-            id="password"
-            type="{{passwordType}}"
-            placeholder="Password*"
-            formControlName="password"
-            class="form-control password-input"
-            required
-          />
-          <div (click)="showPassword()" class="form-control show-password-button">
-            <fa-icon [icon]="faEye" class="show-password-icon"></fa-icon>
-          </div>
+        <div (click)="showPassword()" class="form-control show-password-button">
+          <fa-icon [icon]="faEye" class="show-password-icon"></fa-icon>
         </div>
-        <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control" />
-        <input type="text" placeholder="LastName" formControlName="lastName" class="form-control" />
-        <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid || showErrorEmailExists">+</button>
       </div>
-    </form>
+      <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control" />
+      <input type="text" placeholder="LastName" formControlName="lastName" class="form-control" />
+      <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid || showErrorEmailExists">+</button>
+    </div>
+  </form>
 
+  <div class="users-toolbar">
+    <p>Registered users: <span>{{ users.length }}</span></p>
+    <div class="toolbar btn-group toolbar-tools">
+      <button (click)="sortUsersDown()" class="btn btn-toolbar btn-primary"><fa-icon [icon]="faArrowDown"></fa-icon></button>
+      <button (click)="sortUsersUp()" class="btn btn-toolbar btn-primary"><fa-icon [icon]="faArrowUp"></fa-icon></button>
+    </div>
+  </div>
 
+  <div class="users-list">
+    <table class="table" description="users table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <th scope="row">{{ user.id }}</th>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td class="action-buttons">
+            <button (click)="deleteUser(user)" class="btn btn-secondary">X</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 
-  <p>registered users: <span>{{ users.length }}</span></p>
-    <div class="toolbar btn-group">
-      <button (click)="sortUsersDown()" class="btn btn-toolbar">↓</button>
-      <button (click)="sortUsersUp()" class="btn btn-toolbar">↑</button>
-    </div>
-    <div>
-      <ul>
-        <li *ngFor="let user of users" id="user-{{user.id}}">
-          email: {{ user.id }}
-          email: {{ user.email }}
-          firstName: {{ user.firstName }}
-          lastName: {{ user.lastName }}
-          actions: <button (click)="deleteUser(user)">X</button>
-        </li>
-      </ul>
-    </div>
 </div>
