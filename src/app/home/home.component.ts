@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { User } from '../models/user';
-import { FormControl, FormGroup, ValidatorFn, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
 import { faCoffee, faEye } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
@@ -40,11 +47,9 @@ export class HomeComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      this.uniqueValidator()
+      this.uniqueValidator(),
     ]),
-    password: new FormControl('', [
-      Validators.required,
-    ]),
+    password: new FormControl('', [Validators.required]),
     lastName: new FormControl(''),
     firstName: new FormControl(''),
   });
@@ -52,15 +57,15 @@ export class HomeComponent implements OnInit {
   uniqueValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       let emailExists;
-      if(this.users){
+      if (this.users) {
         this.emailExists(control.value);
       }
-      return emailExists ? {emailExists: {value: control.value}} : null;
+      return emailExists ? { emailExists: { value: control.value } } : null;
     };
   }
 
   emailExists(email: string): User {
-    return this.users.filter(user => user.email === email)[0];
+    return this.users.filter((user) => user.email === email)[0];
   }
 
   generateId(userId: string | any): string {
@@ -74,18 +79,18 @@ export class HomeComponent implements OnInit {
   addUser(): void {
     const user = { ...this.newUserForm.value };
     user.id = this.generateId(`1`);
-    if(!this.emailExists(user.email)) {
+    if (!this.emailExists(user.email)) {
       this.showErrorEmailExists = false;
       this.users.unshift(user);
-    }else{
+    } else {
       this.showErrorEmailExists = true;
     }
   }
 
   verifyEmailExists(): void {
-    if(this.emailExists(this.newUserForm.controls.email.value)){
+    if (this.emailExists(this.newUserForm.controls.email.value)) {
       this.showErrorEmailExists = true;
-    }else{
+    } else {
       this.showErrorEmailExists = false;
     }
   }
