@@ -9,7 +9,13 @@ import {
   ValidationErrors,
   AbstractControl,
 } from '@angular/forms';
-import { faCoffee, faEye, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCoffee,
+  faEye,
+  faEyeSlash,
+  faArrowDown,
+  faArrowUp,
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,17 +29,19 @@ export class HomeComponent implements OnInit {
   }
 
   faCoffee = faCoffee;
-  faEye = faEye;
-  faArrowDown = faArrowDown
-  faArrowUp = faArrowUp
+  faArrowDown = faArrowDown;
+  faArrowUp = faArrowUp;
 
   passwordType: string = 'password';
+  showPasswordIcon = faEye;
 
   showPassword(): void {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
+      this.showPasswordIcon = faEyeSlash;
     } else {
       this.passwordType = 'password';
+      this.showPasswordIcon = faEye;
     }
   }
 
