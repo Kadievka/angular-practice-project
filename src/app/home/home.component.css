@@ -1,0 +1,166 @@
+/* NAVIGATION */
+
+.brand{
+  margin-left: 5vw;
+}
+
+.rigth-links {
+  display: flex;
+  flex-direction: row;
+}
+
+@media(max-width: 200px){
+  .rigth-links {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* ADD USER FORM */
+
+.add-user-form{
+  height: fit-content;
+  margin: 0 20px 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+}
+
+.alerts{
+  height: fit-content;
+  margin: 0 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.invalid{
+  border: 2px solid #ff2c28;
+  background-color: #ff2c2846;
+}
+
+.password-input{
+  width: 75%;
+}
+
+.show-password-button{
+  margin: 0;
+  cursor: pointer;
+}
+
+.show-password-icon{
+  color: lightgray;
+}
+
+.add-button {
+  margin-left: 10px;
+  width: 25%;
+}
+
+form {
+  margin-top: 20px;
+}
+
+form > p{
+  margin-left: 2vw;
+  font-weight: bold;
+  line-height: 0px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@media(max-width: 885px){
+  .show-password-button{
+    padding-left: 0;
+  }
+}
+
+@media(max-width: 600px){
+  .show-password-button{
+    padding-left: 25px;
+  }
+  .add-user-form {
+    flex-direction: column;
+  }
+}
+
+/* USERS TOOLBAR*/
+
+.users-toolbar{
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0px;
+  background-color: rgba(51, 116, 255, 0.171);
+  box-shadow: 1px 0px 5px rgb(100, 99, 107);
+}
+
+.users-toolbar p {
+  padding: 0px;
+  margin: 0;
+  margin-left: 20px;
+  line-height: 0;
+  align-self: center;
+  font-family: Alfa Slab One;
+  font-size: 20px;
+}
+
+.users-toolbar p span {
+  color: rgb(60, 60, 255);
+  font-size: 25px;
+}
+
+.toolbar-tools{
+  margin: 0px;
+  padding: 0px;
+}
+
+@media(max-width: 400px){
+  .users-toolbar{
+    flex-direction: column;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+  }
+  .toolbar-tools{
+    margin-top: 20px;
+  }
+}
+
+@media(max-width: 300px){
+  .users-toolbar{
+    height: 150px;
+  }
+  .users-toolbar p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+  }
+  .users-toolbar p span{
+    margin-top: 40px;
+  }
+}
+
+@media(max-width: 220px){
+  .users-toolbar p {
+    font-size: 12px;
+  }
+}
+
+/* USERS LIST*/
+
+.users-list{
+  margin: 0px;
+  padding: 0px;
+  overflow: scroll;
+  height: 60vh;
+}
+
+.action-buttons{
+  text-justify: center;
+}
