@@ -13,11 +13,24 @@
 }
 
 .add-user-form{
-  height: 40px;
-  margin: 20px;
+  height: fit-content;
+  margin: 0 20px 0 20px;
   display: flex;
   flex-direction: row;
   justify-items: center;
+}
+
+.alerts{
+  height: fit-content;
+  margin: 0 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.invalid{
+  border: 2px solid #ff2c28;
+  background-color: #ff2c2846;
 }
 
 .password-input{

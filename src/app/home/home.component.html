@@ -14,18 +14,48 @@
   <div class="users-body">
 
     <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
-      <p>Add user:</p><hr/>
+      <p>Add user:</p>
+      <hr />
+      <div class="alerts">
+        <div *ngIf="newUserForm.controls.email.errors && (newUserForm.controls.email.touched || newUserForm.controls.email.dirty)" class="form-control invalid">
+          <div *ngIf="newUserForm.controls.email.errors?.required">
+            Email is required
+          </div>
+          <div *ngIf="newUserForm.controls.email.errors?.email">
+            Email is invalid
+          </div>
+        </div>
+        <div *ngIf="newUserForm.controls.password.errors && (newUserForm.controls.password.touched || newUserForm.controls.password.dirty)" class="form-control invalid">
+          <div *ngIf="newUserForm.controls.password.errors?.required">
+            Password is required
+          </div>
+        </div>
+      </div>
       <div class="add-user-form">
-        <input type="text" placeholder="Email" formControlName="email" class="form-control"/>
+        <input
+          id="email"
+          type="text"
+          placeholder="Email*"
+          formControlName="email"
+          class="form-control"
+          required
+        />
         <div class="input-group">
-          <input id="password" type="{{passwordType}}" placeholder="Password" formControlName="password" class="form-control password-input"/>
+          <input
+            id="password"
+            type="{{passwordType}}"
+            placeholder="Password*"
+            formControlName="password"
+            class="form-control password-input"
+            required
+          />
           <div (click)="showPassword()" class="form-control show-password-button">
             <fa-icon [icon]="faEye" class="show-password-icon"></fa-icon>
           </div>
         </div>
-        <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control"/>
-        <input type="text" placeholder="LastName" formControlName="lastName" class="form-control"/>
-        <button type="submit" class="form-control btn btn-outline-primary add-button">+</button>
+        <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control" />
+        <input type="text" placeholder="LastName" formControlName="lastName" class="form-control" />
+        <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid">+</button>
       </div>
     </form>
 

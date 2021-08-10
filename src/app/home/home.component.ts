@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { User } from '../models/user';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCoffee, faEye } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
@@ -37,10 +37,15 @@ export class HomeComponent implements OnInit {
   }
 
   newUserForm = new FormGroup({
-    email: new FormControl(''),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+    ]),
     lastName: new FormControl(''),
     firstName: new FormControl(''),
-    password: new FormControl(''),
   });
 
   generateId(userId: string | any): string {
@@ -52,6 +57,7 @@ export class HomeComponent implements OnInit {
   }
 
   addUser(): void {
+    console.log(this.newUserForm)
     const user = { ...this.newUserForm.value };
     user.id = this.generateId(`1`);
     this.users.unshift(user);
