@@ -17,17 +17,20 @@
       <p>Add user:</p>
       <hr />
       <div class="alerts">
-        <div *ngIf="newUserForm.controls.email.errors && (newUserForm.controls.email.touched || newUserForm.controls.email.dirty)" class="form-control invalid">
+        <div *ngIf="showErrorEmailExists || newUserForm.controls.email.errors && (newUserForm.controls.email.touched || newUserForm.controls.email.dirty)" class="form-control invalid">
           <div *ngIf="newUserForm.controls.email.errors?.required">
-            Email is required
+            Email is required.
           </div>
           <div *ngIf="newUserForm.controls.email.errors?.email">
-            Email is invalid
+            Email is invalid.
+          </div>
+          <div *ngIf="newUserForm.controls.email.errors?.emailExists || (showErrorEmailExists)">
+            Email already exists.
           </div>
         </div>
         <div *ngIf="newUserForm.controls.password.errors && (newUserForm.controls.password.touched || newUserForm.controls.password.dirty)" class="form-control invalid">
           <div *ngIf="newUserForm.controls.password.errors?.required">
-            Password is required
+            Password is required.
           </div>
         </div>
       </div>
@@ -39,6 +42,7 @@
           formControlName="email"
           class="form-control"
           required
+          (input)="verifyEmailExists()"
         />
         <div class="input-group">
           <input
@@ -55,7 +59,7 @@
         </div>
         <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control" />
         <input type="text" placeholder="LastName" formControlName="lastName" class="form-control" />
-        <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid">+</button>
+        <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid || showErrorEmailExists">+</button>
       </div>
     </form>
 

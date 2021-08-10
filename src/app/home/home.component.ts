@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/services/user.service';
 import { User } from '../models/user';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 import { faCoffee, faEye } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
@@ -39,7 +39,8 @@ export class HomeComponent implements OnInit {
   newUserForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
-      Validators.email
+      Validators.email,
+      this.uniqueValidator()
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -47,6 +48,20 @@ export class HomeComponent implements OnInit {
     lastName: new FormControl(''),
     firstName: new FormControl(''),
   });
+
+  uniqueValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      let emailExists;
+      if(this.users){
+        this.emailExists(control.value);
+      }
+      return emailExists ? {emailExists: {value: control.value}} : null;
+    };
+  }
+
+  emailExists(email: string): User {
+    return this.users.filter(user => user.email === email)[0];
+  }
 
   generateId(userId: string | any): string {
     const foundUser = this.users.find((user) => user.id === userId);
@@ -57,11 +72,25 @@ export class HomeComponent implements OnInit {
   }
 
   addUser(): void {
-    console.log(this.newUserForm)
     const user = { ...this.newUserForm.value };
     user.id = this.generateId(`1`);
-    this.users.unshift(user);
+    if(!this.emailExists(user.email)) {
+      this.showErrorEmailExists = false;
+      this.users.unshift(user);
+    }else{
+      this.showErrorEmailExists = true;
+    }
   }
+
+  verifyEmailExists(): void {
+    if(this.emailExists(this.newUserForm.controls.email.value)){
+      this.showErrorEmailExists = true;
+    }else{
+      this.showErrorEmailExists = false;
+    }
+  }
+
+  showErrorEmailExists: boolean = false;
 
   deleteUser(user: User): void {
     this.users = this.users.filter((u) => user.id !== u.id);
