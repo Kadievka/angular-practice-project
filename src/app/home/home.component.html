@@ -1,53 +1,52 @@
 <div>
 
-  <nav>
-    <ul>
-      <li>
-        <a routerLink="/about">About</a>
-      </li>
-      <li>
-        <a routerLink="/documentation">Docs</a>
-      </li>
-      <li>
-        <a routerLink="/login">Login</a>
-      </li>
-    </ul>
+  <nav class="navbar sticky-top navbar-dark bg-black">
+    <a class="navbar-brand brand" routerLink="/">
+      <fa-icon [icon]="faCoffee"></fa-icon>
+    </a>
+    <div class="left-links">
+      <a class="nav-link" routerLink="/about">About</a>
+      <a class="nav-link" routerLink="/documentation">Docs</a>
+      <a class="nav-link" routerLink="/login">Login</a>
+    </div>
   </nav>
 
-  <button (click)="sortUsersDown()">↓</button>
-  <button (click)="sortUsersUp()">↑</button>
+  <div class="users-body">
 
-  <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
-    <p>Add a user:</p>
-    <button type="submit">add</button>
+    <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
+      <p>Add user:</p><hr/>
+      <div class="add-user-form">
+        <input type="text" placeholder="Email" formControlName="email" class="form-control"/>
+        <div class="input-group">
+          <input id="password" type="{{passwordType}}" placeholder="Password" formControlName="password" class="form-control password-input"/>
+          <div (click)="showPassword()" class="form-control show-password-button">
+            <fa-icon [icon]="faEye" class="show-password-icon"></fa-icon>
+          </div>
+        </div>
+        <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control"/>
+        <input type="text" placeholder="LastName" formControlName="lastName" class="form-control"/>
+        <button type="submit" class="form-control btn btn-outline-primary add-button">+</button>
+      </div>
+    </form>
 
-    <label for="email">Email:</label>
-    <input type="text" id="email" formControlName="email"/>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password"/>
-
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" formControlName="firstName"/>
-
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" formControlName="lastName"/>
-  </form>
-
-  <div>
-    <p>registered users: <span>{{ users.length }}</span></p>
   </div>
 
-  <div>
-    <ul>
-      <li *ngFor="let user of users" id="user-{{user.id}}">
-        email: {{ user.id }}
-        email: {{ user.email }}
-        firstName: {{ user.firstName }}
-        lastName: {{ user.lastName }}
-        actions: <button (click)="deleteUser(user)">X</button>
-      </li>
-    </ul>
-  </div>
 
+  <p>registered users: <span>{{ users.length }}</span></p>
+    <div class="toolbar btn-group">
+      <button (click)="sortUsersDown()" class="btn btn-toolbar">↓</button>
+      <button (click)="sortUsersUp()" class="btn btn-toolbar">↑</button>
+    </div>
+    <div>
+      <ul>
+        <li *ngFor="let user of users" id="user-{{user.id}}">
+          email: {{ user.id }}
+          email: {{ user.email }}
+          firstName: {{ user.firstName }}
+          lastName: {{ user.lastName }}
+          actions: <button (click)="deleteUser(user)">X</button>
+        </li>
+      </ul>
+    </div>
 </div>

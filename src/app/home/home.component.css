@@ -1,0 +1,72 @@
+.brand{
+  margin-left: 5vw;
+}
+
+.left-links {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-body{
+  display: flex;
+  flex-direction: row;
+}
+
+.add-user-form{
+  height: 40px;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+}
+
+.password-input{
+  width: 75%;
+}
+
+.show-password-button{
+  margin: 0;
+  cursor: pointer;
+}
+
+.show-password-icon{
+  color: lightgray;
+}
+
+.add-button {
+  margin-left: 10px;
+  width: 25%;
+}
+
+form {
+  margin-top: 20px;
+}
+
+form > p{
+  margin-left: 2vw;
+  font-weight: bold;
+  line-height: 0px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@media(max-width: 885px){
+  .show-password-button{
+    padding-left: 0;
+  }
+}
+
+@media(max-width: 600px){
+  .show-password-button{
+    padding-left: 25px;
+  }
+  .add-user-form {
+    flex-direction: column;
+  }
+}
+
+@media(max-width: 200px){
+  .left-links {
+    display: flex;
+    flex-direction: column;
+  }
+}
