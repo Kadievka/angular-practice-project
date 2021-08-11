@@ -1,4 +1,7 @@
 /* NAVIGATION */
+.navigation{
+  height: 10vh;
+}
 
 .brand{
   margin-left: 5vw;

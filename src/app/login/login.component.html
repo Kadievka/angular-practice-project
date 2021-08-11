@@ -1,2 +1,41 @@
 <app-navigation></app-navigation>
-<p>login works!</p>
+<div class="login-form-page">
+  <div class="login-form-outside">
+    <form>
+      <div class="login-form-inside">
+        <input
+            id="email"
+            type="text"
+            placeholder="Email*"
+            class="form-control"
+            required
+          />
+          <div class="input-group">
+            <input
+              id="password"
+              type="{{ passwordType }}"
+              placeholder="Password*"
+              class="form-control password-input"
+              required
+            />
+            <div
+              (click)="showPassword()"
+              class="form-control show-password-button"
+            >
+              <fa-icon
+                [icon]="showPasswordIcon"
+                class="show-password-icon"
+              ></fa-icon>
+            </div>
+          </div>
+        <button
+          type="submit"
+          class="form-control btn btn-primary sign-up-button"
+        >
+          Sign up
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>
