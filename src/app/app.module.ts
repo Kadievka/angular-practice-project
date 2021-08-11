@@ -9,12 +9,16 @@ import { HomeComponent } from './home/home.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NotFoundComponent,
+    LoginComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

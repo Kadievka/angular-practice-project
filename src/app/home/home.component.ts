@@ -10,7 +10,6 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import {
-  faCoffee,
   faEye,
   faEyeSlash,
   faArrowDown,
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
     this.getRandomUsersFromApi();
   }
 
-  faCoffee = faCoffee;
   faArrowDown = faArrowDown;
   faArrowUp = faArrowUp;
 

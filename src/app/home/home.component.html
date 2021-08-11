@@ -1,16 +1,5 @@
+<app-navigation></app-navigation>
 <div>
-
-  <nav class="navbar sticky-top navbar-dark bg-black">
-    <a class="navbar-brand brand" routerLink="/">
-      <fa-icon [icon]="faCoffee"></fa-icon>
-    </a>
-    <div class="rigth-links">
-      <a class="nav-link" routerLink="/about">About</a>
-      <a class="nav-link" routerLink="/documentation">Docs</a>
-      <a class="nav-link" routerLink="/login">Login</a>
-    </div>
-  </nav>
-
   <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
     <p>Add user:</p>
     <hr />

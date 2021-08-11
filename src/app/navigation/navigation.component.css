@@ -1,0 +1,17 @@
+/* NAVIGATION */
+
+.brand{
+  margin-left: 5vw;
+}
+
+.rigth-links {
+  display: flex;
+  flex-direction: row;
+}
+
+@media(max-width: 200px){
+  .rigth-links {
+    display: flex;
+    flex-direction: column;
+  }
+}
