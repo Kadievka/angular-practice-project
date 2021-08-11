@@ -2,6 +2,11 @@
 .navigation{
   height: 10vh;
 }
+@media(max-width: 360px){
+  .navigation {
+    height: fit-content;
+  }
+}
 
 .brand{
   margin-left: 5vw;
