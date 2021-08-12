@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { faCoffee, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {
+  faCoffee,
+  faSignInAlt,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
-
-  constructor(
-    private modalService: NgbModal,
-    private router: Router,
-  ) { }
+  constructor(private modalService: NgbModal, private router: Router) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       this.canLogin = false;
-    }else{
+    } else {
       this.canLogin = true;
     }
   }
@@ -41,11 +41,16 @@ export class NavigationComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   logout(): void {
@@ -53,5 +58,4 @@ export class NavigationComponent implements OnInit {
     this.modalService.dismissAll();
     window.location.reload();
   }
-
 }
