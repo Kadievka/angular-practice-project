@@ -3,11 +3,17 @@
     <fa-icon [icon]="faCoffee"></fa-icon>
   </a>
   <div class="rigth-links">
+    <!-- TODO about page -->
     <a class="nav-link" routerLink="/about">About</a>
+    <!-- TODO docs page password -->
     <a class="nav-link" routerLink="/documentation">Docs</a>
-    <a *ngIf="canLogin" class="nav-link" routerLink="/login">
+    <a *ngIf="canLogin && !beInLogin " class="nav-link" routerLink="/login">
       Login
       <fa-icon [icon]="faSignInAlt"></fa-icon>
+    </a>
+    <!-- TODO reset password -->
+    <a *ngIf="canLogin && beInLogin " class="nav-link" routerLink="/reset-password">
+      Forgot password?
     </a>
     <a *ngIf="!canLogin" class="nav-link" routerLink="/profile">
       <fa-icon [icon]="faUserAlt"></fa-icon>

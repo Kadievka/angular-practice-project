@@ -65,4 +65,6 @@ export class NavigationComponent implements OnInit {
     this.modalService.dismissAll();
     window.location.reload();
   }
+
+  beInLogin: boolean= (this.router.url === '/login');
 }
