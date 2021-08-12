@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserService } from 'src/services/user.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +17,10 @@ import { UserService } from 'src/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
 
@@ -62,7 +66,7 @@ export class LoginComponent implements OnInit {
         } else {
           localStorage.setItem('token', loginData.jwt);
           this.invalidPassword = false;
-          //TODO redirect to home and block login route
+          this.router.navigate(['/']);
         }
       });
   }
