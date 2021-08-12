@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { UserService } from 'src/services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    ) { }
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -61,10 +63,13 @@ export class LoginComponent implements OnInit {
       .loginService(body)
       .subscribe((loginData) => {
         if (loginData.error) {
-          localStorage.removeItem('token');
-          this.invalidPassword = true;
+          this.authService.unauthenticate();
+          console.log(loginData);
+          if(loginData.error.statusCode === 403 || loginData.error.statusCode === 400){
+            this.invalidPassword = true;
+          }
         } else {
-          localStorage.setItem('token', loginData.jwt);
+          this.authService.authenticate(loginData.jwt);
           this.invalidPassword = false;
           this.router.navigate(['/']);
         }

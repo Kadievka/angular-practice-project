@@ -6,16 +6,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/services/auth.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
-  constructor(private modalService: NgbModal, private router: Router) {}
+  constructor(
+    private modalService: NgbModal,
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
+    if (this.authService.isAuthenticated) {
       this.canLogin = false;
     } else {
       this.canLogin = true;
@@ -54,7 +59,7 @@ export class NavigationComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    this.authService.unauthenticate();
     this.modalService.dismissAll();
     window.location.reload();
   }
