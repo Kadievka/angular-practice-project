@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    NgbModule,
   ],
   providers: [
     httpInterceptorProviders

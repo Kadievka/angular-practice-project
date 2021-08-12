@@ -9,9 +9,27 @@
       Login
       <fa-icon [icon]="faSignInAlt"></fa-icon>
     </a>
-    <a *ngIf="!canLogin" class="nav-link" href="/" (click)="logout()">
+    <a *ngIf="!canLogin" class="nav-link" href="#" (click)="open(content)">
       Logout
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </a>
   </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Are you sure you want to logout?</h4>
+      <button type="button" class="btn btn-primary close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group center-buttons">
+            <button class="btn btn-outline-primary margin-butons" (click)="logout()" type="button">Acept</button>
+            <button class="btn btn-outline-secondary margin-butons" (click)="modal.dismiss('Cross click')" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
 </nav>
