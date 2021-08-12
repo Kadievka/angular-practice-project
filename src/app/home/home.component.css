@@ -146,3 +146,7 @@ form > p{
 .action-buttons{
   text-justify: center;
 }
+
+.users-table {
+  text-align: center;
+}

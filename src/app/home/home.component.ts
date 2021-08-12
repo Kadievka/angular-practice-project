@@ -15,16 +15,24 @@ import {
   faArrowDown,
   faArrowUp,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/services/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
-    this.getRandomUsersFromApi();
+    if(this.authService.isAuthenticated && this.authService.isAdmin()){
+      this.getActualUsers();
+    }else{
+      this.getRandomUsersFromApi();
+    }
   }
 
   faArrowDown = faArrowDown;
@@ -44,11 +52,15 @@ export class HomeComponent implements OnInit {
   }
 
   sortUsersDown(): void {
-    this.users.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+    this.users.sort((a, b) => {
+      return (a.email > b.email) ? 1 : -1;
+    });
   }
 
   sortUsersUp(): void {
-    this.users.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+    this.users.sort((a, b) => {
+      return (b.email > a.email) ? 1 : -1;
+    });
   }
 
   newUserForm = new FormGroup({
@@ -114,6 +126,12 @@ export class HomeComponent implements OnInit {
   getRandomUsersFromApi(): void {
     this.userService
       .getRandomUsers()
+      .subscribe((users) => (this.users = users));
+  }
+
+  getActualUsers(): void {
+    this.userService
+      .getActualUsers()
       .subscribe((users) => (this.users = users));
   }
 }

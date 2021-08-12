@@ -3,6 +3,7 @@ import {
   faCoffee,
   faSignInAlt,
   faSignOutAlt,
+  faUserAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -30,6 +31,7 @@ export class NavigationComponent implements OnInit {
   faCoffee = faCoffee;
   faSignInAlt = faSignInAlt;
   faSignOutAlt = faSignOutAlt;
+  faUserAlt = faUserAlt;
 
   canLogin: boolean = true;
 

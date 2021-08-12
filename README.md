@@ -6,8 +6,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ☕️ Developed by **Kadievka** 💻
 
 In this project you will see:
-- A list of random users to fill de home page, when backend is running.
-- Using reactive forms in angular, click events, validations.
+- A list of random users to fill the home page, when backend is running.
+- Using reactive forms in angular.
+- Consume of services with rxjs.
+- Validators.
+- Interceptors.
+- Guards.
 - 404 page for invalid routes.
 - CSS skills.
 - Auth service to login and logout.

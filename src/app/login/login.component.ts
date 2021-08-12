@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             this.invalidPassword = true;
           }
         } else {
-          this.authService.authenticate(loginData.jwt);
+          this.authService.authenticate(loginData.jwt, loginData.isAdmin);
           this.invalidPassword = false;
           this.router.navigate(['/']);
         }

@@ -59,22 +59,20 @@
   </div>
 
   <div class="users-list">
-    <table class="table" description="users table">
+    <table class="table users-table">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">Email</th>
           <th scope="col">First name</th>
           <th scope="col">Last name</th>
-          <th scope="col">Email</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
-          <th scope="row">{{ user.id }}</th>
+          <th scope="row">{{ user.email }}</th>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
-          <td>{{ user.email }}</td>
           <td class="action-buttons">
             <button (click)="deleteUser(user)" class="btn btn-secondary">X</button>
           </td>
