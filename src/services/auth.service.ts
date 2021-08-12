@@ -7,7 +7,14 @@ export class AuthService {
 
   constructor() {}
 
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean = this.verifyTokenExists();
+
+  verifyTokenExists(): boolean {
+    if(localStorage.getItem('token')){
+      return true;
+    }
+    return false;
+  }
 
   authenticate(jwt: string): void {
     this.isAuthenticated = true;

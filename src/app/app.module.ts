@@ -12,6 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { LoginGuardService } from './guards/login-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
   ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    AuthGuardService,
+    LoginGuardService,
   ],
   bootstrap: [AppComponent]
 })
