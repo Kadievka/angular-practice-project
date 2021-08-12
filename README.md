@@ -1,6 +1,20 @@
-# AngularPracticeProject
+# Angular Practice Project 👩‍💻
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
+> This practice project show my abilities to use a nestjs backend project services as providers for my angular frontend app.
+
+☕️ Developed by **Kadievka** 💻
+
+In this project you will see:
+- A list of random users to fill de home page, when backend is running.
+- Using reactive forms in angular, click events, validations.
+- 404 page for invalid routes.
+- CSS skills.
+- Auth service to login and logout.
+- And much more...
+
+------------
+
 
 ## Development server
 
