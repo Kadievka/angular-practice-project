@@ -25,19 +25,25 @@ export class UserService {
       return of(result as T);
     }
   }
-  mainUrl = environment.MAIN_API_ENDPOINT;
-
-  prefixUrl = '/users';
+  mainUrl = environment.MAIN_API_ENDPOINT + '/users';
 
   getRandomUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/get-random-users`, this.httpOptions).pipe(
+    return this.http.get<User[]>(`${this.mainUrl}/get-random-users`, this.httpOptions).pipe(
       catchError(this.handleError<User[]>('getRandomUsers', [])),
     );
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.mainUrl}${this.prefixUrl}/manage-get-users`, this.httpOptions).pipe(
+    return this.http.get<User[]>(`${this.mainUrl}/manage-get-users`, this.httpOptions).pipe(
       catchError(this.handleError<User[]>('getRandomUsers', []))
+    );
+  }
+
+  loginService(body: {email: string, password: string}): Observable<any> {
+    return this.http.post<any>(`${this.mainUrl}/login`, body).pipe(
+      catchError( (error) => {
+        return of(error);
+      })
     );
   }
 }

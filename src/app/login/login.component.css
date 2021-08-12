@@ -1,3 +1,16 @@
+.alerts{
+  height: fit-content;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.invalid{
+  border: 2px solid #ff2c28;
+  background-color: #ff2c2846;
+}
+
 .login-form-page{
   display: flex;
   justify-content: center;
@@ -16,7 +29,7 @@
 .login-form-inside{
   position: fixed;
   left: 430px;
-  bottom: 270px;
+  top: 235px;
   width: 350px;
   display: flex;
   align-items: center;
@@ -25,6 +38,12 @@
 
 .sign-up-button{
   margin-top: 5px;
+}
+
+.sign-up-button:disabled{
+  border: 1px solid rgb(117, 117, 255);
+  background-color: rgb(117, 117, 255);
+  opacity: 1;
 }
 
 .password-input{
