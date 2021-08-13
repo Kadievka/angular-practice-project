@@ -161,3 +161,15 @@ form > p{
   margin: 0;
   padding: 0;
 }
+
+.sticky{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.sticky th {
+  position: sticky;
+  box-shadow: inset 0px -2px #000;
+}
