@@ -79,7 +79,7 @@ form > p{
   box-shadow: 1px 0px 5px rgb(100, 99, 107);
 }
 
-.users-toolbar p {
+.users-toolbar > p {
   padding: 0px;
   margin: 0;
   margin-left: 20px;
@@ -89,7 +89,7 @@ form > p{
   font-size: 20px;
 }
 
-.users-toolbar p span {
+.users-toolbar > p > span {
   color: rgb(60, 60, 255);
   font-size: 25px;
 }
@@ -115,7 +115,7 @@ form > p{
   .users-toolbar{
     height: 150px;
   }
-  .users-toolbar p {
+  .users-toolbar > p {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -123,13 +123,13 @@ form > p{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
   }
-  .users-toolbar p span{
+  .users-toolbar p > span{
     margin-top: 40px;
   }
 }
 
 @media(max-width: 220px){
-  .users-toolbar p {
+  .users-toolbar > p {
     font-size: 12px;
   }
 }
@@ -149,4 +149,15 @@ form > p{
 
 .users-table {
   text-align: center;
+}
+
+.alert-message{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.alert-message > p {
+  line-height: 0;
+  margin: 0;
+  padding: 0;
 }

@@ -14,6 +14,9 @@ import {
   faEyeSlash,
   faArrowDown,
   faArrowUp,
+  faPlusSquare,
+  faBan,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/services/auth.service';
 @Component({
@@ -34,6 +37,10 @@ export class HomeComponent implements OnInit {
       this.getRandomUsersFromApi();
     }
   }
+
+  faPlusSquare = faPlusSquare;
+  faBan = faBan;
+  faTimes = faTimes;
 
   faArrowDown = faArrowDown;
   faArrowUp = faArrowUp;
@@ -69,7 +76,10 @@ export class HomeComponent implements OnInit {
       Validators.email,
       this.uniqueValidator(),
     ]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
     lastName: new FormControl(''),
     firstName: new FormControl(''),
   });
@@ -88,19 +98,15 @@ export class HomeComponent implements OnInit {
     return this.users.filter((user) => user.email === email)[0];
   }
 
-  generateId(userId: string | any): string {
-    const foundUser = this.users.find((user) => user.id === userId);
-    if (foundUser) {
-      userId = this.generateId(`${parseInt(userId) + 1}`);
-    }
-    return userId;
-  }
+  canConsumeAdminServices: boolean = (this.authService.isAuthenticated && this.authService.isAdmin());
 
   addUser(): void {
     const user = { ...this.newUserForm.value };
-    user.id = this.generateId(`1`);
     if (!this.emailExists(user.email)) {
       this.showErrorEmailExists = false;
+      if(this.canConsumeAdminServices){
+        this.userService.addOneUser(user).subscribe();
+      }
       this.users.unshift(user);
     } else {
       this.showErrorEmailExists = true;
@@ -117,8 +123,55 @@ export class HomeComponent implements OnInit {
 
   showErrorEmailExists: boolean = false;
 
+  isAdmin(user: User): boolean {
+    return user.isAdmin ? true : false;
+  }
+
+  alert = {
+    show: false,
+    message: '',
+  }
+
+  closeAlert(): void {
+    this.alert = {
+      show: false,
+      message: '',
+    }
+  }
+
+  showAlert(message: string): void {
+    this.alert.show = true;
+    this.alert.message = message;
+  }
+
   deleteUser(user: User): void {
-    this.users = this.users.filter((u) => user.id !== u.id);
+    if(this.isAdmin(user)){
+      this.showAlert('Admin users can\'t be deleted.');
+      return;
+    }
+    if(this.canConsumeAdminServices){
+      this.userService.deleteOneUser(user).subscribe();
+    }
+    this.users = this.users.filter((u) => user.email !== u.email);
+  }
+
+  isBanned(user: User): boolean {
+    return user.isBanned ? true : false;
+  }
+
+  banUser(user: User): void {
+    if(this.isAdmin(user)){
+      this.showAlert('Admin users can\'t be banned.');
+      return;
+    }
+    if(this.isBanned(user)){
+      this.showAlert('This user is already banned.');
+      return;
+    }
+    if(this.canConsumeAdminServices){
+      this.userService.banOneUser(user).subscribe();
+    }
+    user.isBanned = true;
   }
 
   users: User[] = [];
