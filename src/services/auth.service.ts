@@ -20,6 +20,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+
   verifyTokenExists(): boolean {
     if(this.getToken()){
       return true;
@@ -27,15 +31,19 @@ export class AuthService {
     return false;
   }
 
-  authenticate(jwt: string, isAdmin: boolean): void {
+  authenticate(data: {email:string, isAdmin: boolean, jwt: string}): void {
+    console.log(data)
+    const {email, isAdmin, jwt} = {...data}
     this.isAuthenticated = true;
-    localStorage.setItem('kgy2ufg1', 'true');
+    localStorage.setItem('kgy2ufg1', isAdmin ? 'true' : 'false');
     localStorage.setItem('token', jwt);
+    localStorage.setItem('email', email);
   }
 
   unauthenticate(): void {
     this.isAuthenticated = false;
     localStorage.setItem('kgy2ufg1', 'false');
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
   }
 }

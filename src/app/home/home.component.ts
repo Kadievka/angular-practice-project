@@ -95,7 +95,8 @@ export class HomeComponent implements OnInit {
   }
 
   emailExists(email: string): User {
-    return this.users.filter((user) => user.email === email)[0];
+    const emailFound = this.users.filter((user) => user.email === email)[0];
+    return (emailFound || (this.authService.getEmail() === email));
   }
 
   canConsumeAdminServices: boolean = (this.authService.isAuthenticated && this.authService.isAdmin());

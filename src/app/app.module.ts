@@ -1,7 +1,8 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LoginGuardService } from './guards/login-guard.service';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { LoginGuardService } from './guards/login-guard.service';
     NotFoundComponent,
     LoginComponent,
     NavigationComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { LoginGuardService } from './guards/login-guard.service';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [
     httpInterceptorProviders,
