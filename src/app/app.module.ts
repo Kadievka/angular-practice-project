@@ -9,12 +9,19 @@ import { HomeComponent } from './home/home.component';
 import { httpInterceptorProviders } from './http-interceptors';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { LoginGuardService } from './guards/login-guard.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NotFoundComponent,
+    LoginComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,9 +29,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    NgbModule,
   ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    AuthGuardService,
+    LoginGuardService,
   ],
   bootstrap: [AppComponent]
 })

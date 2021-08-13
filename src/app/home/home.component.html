@@ -1,16 +1,5 @@
+<app-navigation></app-navigation>
 <div>
-
-  <nav class="navbar sticky-top navbar-dark bg-black">
-    <a class="navbar-brand brand" routerLink="/">
-      <fa-icon [icon]="faCoffee"></fa-icon>
-    </a>
-    <div class="rigth-links">
-      <a class="nav-link" routerLink="/about">About</a>
-      <a class="nav-link" routerLink="/documentation">Docs</a>
-      <a class="nav-link" routerLink="/login">Login</a>
-    </div>
-  </nav>
-
   <form [formGroup]="newUserForm" (ngSubmit)="addUser()">
     <p>Add user:</p>
     <hr />
@@ -29,6 +18,9 @@
       <div *ngIf="newUserForm.controls.password.errors && (newUserForm.controls.password.touched || newUserForm.controls.password.dirty)" class="form-control invalid">
         <div *ngIf="newUserForm.controls.password.errors?.required">
           Password is required.
+        </div>
+        <div *ngIf="newUserForm.controls.password.errors?.minlength">
+          Password must be at least 8 characters long.
         </div>
       </div>
     </div>
@@ -57,7 +49,13 @@
       </div>
       <input type="text" placeholder="FirstName" formControlName="firstName" class="form-control" />
       <input type="text" placeholder="LastName" formControlName="lastName" class="form-control" />
-      <button type="submit" class="form-control btn btn-outline-primary add-button" [disabled]="newUserForm.invalid || showErrorEmailExists">+</button>
+      <button
+        type="submit"
+        class="form-control btn btn-outline-primary add-button"
+        [disabled]="newUserForm.invalid || showErrorEmailExists"
+      >
+        <fa-icon [icon]="faPlusSquare"></fa-icon>
+      </button>
     </div>
   </form>
 
@@ -70,24 +68,63 @@
   </div>
 
   <div class="users-list">
-    <table class="table" description="users table">
+    <div *ngIf="alert.show" class="form-control invalid alert-message">
+      <p>{{alert.message}}</p>
+      <button (click)="closeAlert()" class="btn-close"></button>
+    </div>
+    <table class="table users-table">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">Email</th>
           <th scope="col">First name</th>
           <th scope="col">Last name</th>
-          <th scope="col">Email</th>
+          <th scope="col">Administrator</th>
+          <th scope="col">Banned</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let user of users">
-          <th scope="row">{{ user.id }}</th>
+          <th scope="row">{{ user.email }}</th>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
-          <td>{{ user.email }}</td>
+          <td>
+            <input
+            type="checkbox"
+            class="form-check-input"
+            disabled
+            [checked]="isAdmin(user)"
+            >
+          </td>
+          <td>
+            <input
+            type="checkbox"
+            class="form-check-input"
+            disabled
+            [checked]="isBanned(user)"
+            >
+          </td>
           <td class="action-buttons">
-            <button (click)="deleteUser(user)" class="btn btn-secondary">X</button>
+            <!-- TODO make a modal to ensure this buttons -->
+            <div class="btn-group" *ngIf="!isAdmin(user)">
+              <button
+                *ngIf="!isBanned(user)"
+                (click)="banUser(user)"
+                class="btn btn-secondary mr-2"
+                placement="right"
+                ngbTooltip="ban"
+              >
+                <fa-icon [icon]="faBan"></fa-icon>
+              </button>
+              <button
+                (click)="deleteUser(user)"
+                class="btn btn-secondary mr-2"
+                placement="right"
+                ngbTooltip="delete"
+              >
+                <fa-icon [icon]="faTimes"></fa-icon>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

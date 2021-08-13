@@ -1,0 +1,35 @@
+/* NAVIGATION */
+.navigation{
+  height: 10vh;
+}
+@media(max-width: 360px){
+  .navigation {
+    height: fit-content;
+  }
+}
+
+.brand{
+  margin-left: 5vw;
+}
+
+.rigth-links {
+  display: flex;
+  flex-direction: row;
+}
+
+@media(max-width: 200px){
+  .rigth-links {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.center-buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.margin-butons{
+  margin-left: 20px;
+  margin-right: 20px;
+}

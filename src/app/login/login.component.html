@@ -1,0 +1,62 @@
+<app-navigation></app-navigation>
+<div class="alerts">
+  <div *ngIf="loginForm.controls.email.errors && (loginForm.controls.email.touched || loginForm.controls.email.dirty)" class="form-control invalid">
+    <div *ngIf="loginForm.controls.email.errors?.required">
+      Email is required.
+    </div>
+    <div *ngIf="loginForm.controls.email.errors?.email">
+      Email is invalid.
+    </div>
+  </div>
+  <div *ngIf="invalidPassword || (loginForm.controls.password.errors && (loginForm.controls.password.touched || loginForm.controls.password.dirty))" class="form-control invalid">
+    <div *ngIf="loginForm.controls.password.errors?.required">
+      Password is required.
+    </div>
+    <div *ngIf="invalidPassword">
+      Wrong email or password.
+    </div>
+  </div>
+</div>
+<div class="login-form-page">
+  <div class="login-form-outside">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="login-form-inside">
+        <input
+            id="email"
+            type="text"
+            placeholder="Email*"
+            class="form-control"
+            formControlName="email"
+            required
+          />
+          <div class="input-group">
+            <input
+              id="password"
+              type="{{ passwordType }}"
+              placeholder="Password*"
+              class="form-control password-input"
+              formControlName="password"
+              required
+            />
+            <div
+              (click)="showPassword()"
+              class="form-control show-password-button"
+            >
+              <fa-icon
+                [icon]="showPasswordIcon"
+                class="show-password-icon"
+              ></fa-icon>
+            </div>
+          </div>
+        <button
+          type="submit"
+          class="form-control btn btn-primary sign-up-button"
+          [disabled]="loginForm.invalid"
+        >
+          Sign up
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>
