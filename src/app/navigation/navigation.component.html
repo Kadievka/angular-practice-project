@@ -5,18 +5,18 @@
   <div class="rigth-links">
     <a class="nav-link" routerLink="/About">About</a>
     <a class="nav-link" href="https://github.com/Kadievka/angular-practice-project" target="_blank">Docs</a>
-    <a *ngIf="canLogin && !beInLogin " class="nav-link" routerLink="/login">
+    <a *ngIf="canLogin() && !beInLogin()" class="nav-link" routerLink="/login">
       Login
       <fa-icon [icon]="faSignInAlt"></fa-icon>
     </a>
     <!-- TODO reset password -->
-    <a *ngIf="canLogin && beInLogin " class="nav-link" routerLink="/reset-password">
+    <a *ngIf="(canLogin() && beInLogin())" class="nav-link" routerLink="/reset-password">
       Forgot password?
     </a>
-    <a *ngIf="!canLogin" class="nav-link" routerLink="/profile">
+    <a *ngIf="!canLogin()" class="nav-link" routerLink="/profile">
       <fa-icon [icon]="faUserAlt"></fa-icon>
     </a>
-    <a *ngIf="!canLogin" class="nav-link" href="#" (click)="open(content)">
+    <a *ngIf="!canLogin()" class="nav-link" href="#" (click)="open(content)">
       Logout
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </a>
@@ -24,7 +24,7 @@
 
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Are you sure you want to logout?</h4>
+      <h4 class="modal-title" id="modal-basic-title">Are you sure you want to sing out?</h4>
       <button type="button" class="btn btn-primary close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
