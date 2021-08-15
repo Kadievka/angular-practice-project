@@ -62,4 +62,8 @@ export class UserService {
       .put<User>(`${this.mainUrl}/manage-ban/${user.email}`, null, this.httpOptions)
       .pipe(catchError((error) => of(error)));
   }
+
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.mainUrl}/profile`, this.httpOptions);
+  }
 }

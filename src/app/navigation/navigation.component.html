@@ -16,7 +16,7 @@
     <a *ngIf="!canLogin()" class="nav-link" routerLink="/profile">
       <fa-icon [icon]="faUserAlt"></fa-icon>
     </a>
-    <a *ngIf="!canLogin()" class="nav-link" href="#" (click)="open(content)">
+    <a *ngIf="!canLogin()" class="nav-link active-pointer" (click)="open(content)">
       Logout
       <fa-icon [icon]="faSignOutAlt"></fa-icon>
     </a>
