@@ -113,7 +113,16 @@
                 placement="right"
                 ngbTooltip="ban"
               >
-                <fa-icon [icon]="faBan"></fa-icon>
+                <fa-icon [icon]="faUserTimes"></fa-icon>
+              </button>
+              <button
+                *ngIf="isBanned(user)"
+                (click)="removeBanUser(user)"
+                class="btn btn-secondary mr-2"
+                placement="right"
+                ngbTooltip="remove ban"
+              >
+                <fa-icon [icon]="faUserCheck"></fa-icon>
               </button>
               <button
                 (click)="deleteUser(user)"
