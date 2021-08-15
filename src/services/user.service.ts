@@ -6,6 +6,7 @@ import { User } from '../app/models/user';
 import { environment } from '../environments/environment';
 import { Login } from '../app/models/login';
 import { Register } from '../app/models/register';
+import { Profile } from '../app/models/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -65,5 +66,11 @@ export class UserService {
 
   getProfile(): Observable<User> {
     return this.http.get<User>(`${this.mainUrl}/profile`, this.httpOptions);
+  }
+
+  updateProfile(user: Profile): Observable<User> {
+    return this.http
+      .put<User>(`${this.mainUrl}/profile`, user, this.httpOptions)
+      .pipe(catchError((error) => of(error)));
   }
 }

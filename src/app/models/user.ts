@@ -10,4 +10,8 @@ export interface User {
   password?: string;
   cellphone?: string;
   address?: string;
+  error?: {
+    message: string;
+  }
+  status?: number;
 }
