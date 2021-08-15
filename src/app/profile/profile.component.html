@@ -1,0 +1,76 @@
+<div>
+  <h2>Profile</h2>
+  <div class="profile-group">
+    <div class="left-group">
+      <div class="img-container">
+        <img src="{{userProfileImage}}" alt="profile" class="img-thumbnail" />
+      </div>
+      <div class="save-button">
+        <!-- TODO: consume upload image service -->
+        <button class="form-control btn btn-primary">Upload Image</button>
+      </div>
+    </div>
+    <form class="form-group profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <label for="email" class="col-sm-2 control-label">Email:</label>
+      <input
+        class="form-control"
+        type="email"
+        id="email"
+        name="email"
+        disabled
+        value="{{user.email}}"
+      />
+      <label for="nickname" class="col-sm-2 control-label">Nickname:</label>
+      <div *ngIf="error.show" class="form-control invalid">
+        {{error.message}}
+      </div>
+      <input
+        formControlName="nickname"
+        class="form-control"
+        type="nickname" placeholder="Nickname"
+        id="nickname"
+        name="nickname"
+        value="{{user.nickname}}"
+      />
+      <label for="firstName" class="col-sm-2 control-label">First Name:</label>
+      <input
+        formControlName="firstName"
+        class="form-control"
+        type="text"
+        id="firstName"
+        name="firstName"
+        value="{{user.firstName}}"
+      />
+      <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
+      <input
+        formControlName="lastName"
+        class="form-control"
+        type="text"
+        id="lastName"
+        name="lastName"
+        value="{{user.lastName}}"
+      />
+      <label for="cellphone" class="col-sm-2 control-label">Cellphone:</label>
+      <input
+        formControlName="cellphone"
+        class="form-control"
+        type="tel"
+        id="cellphone"
+        name="cellphone"
+        value="{{user.cellphone}}"
+      />
+      <label for="address" class="col-sm-2 control-label">Address:</label>
+      <input
+        formControlName="address"
+        class="form-control"
+        type="text"
+        id="address"
+        name="address"
+        value="{{user.address}}"
+      />
+      <label class="col-sm-2 control-label"></label>
+      <button class="form-control btn btn-outline-primary" type="submit">Save Changes</button>
+    </form>
+  </div>
+  <p>Your information is completely private, only user nickname and profile image can be shown</p>
+</div>

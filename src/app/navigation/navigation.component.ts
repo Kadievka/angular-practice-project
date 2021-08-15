@@ -21,11 +21,6 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated) {
-      this.canLogin = false;
-    } else {
-      this.canLogin = true;
-    }
   }
 
   faCoffee = faCoffee;
@@ -33,7 +28,12 @@ export class NavigationComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
   faUserAlt = faUserAlt;
 
-  canLogin: boolean = true;
+  canLogin = (): boolean => {
+    if (this.authService.isAuthenticated) {
+      return false;
+    }
+    return true;
+  };
 
   closeResult = '';
 
@@ -66,5 +66,5 @@ export class NavigationComponent implements OnInit {
     window.location.reload();
   }
 
-  beInLogin: boolean= (this.router.url === '/login');
+  beInLogin = (): boolean => (this.router.url === '/login');
 }

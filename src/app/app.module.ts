@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LoginGuardService } from './guards/login-guard.service';
 import { AboutComponent } from './about/about.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AboutComponent } from './about/about.component';
     LoginComponent,
     NavigationComponent,
     AboutComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
