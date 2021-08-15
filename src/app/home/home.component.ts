@@ -17,6 +17,8 @@ import {
   faPlusSquare,
   faBan,
   faTimes,
+  faUserCheck,
+  faUserTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/services/auth.service';
 @Component({
@@ -39,7 +41,8 @@ export class HomeComponent implements OnInit {
   }
 
   faPlusSquare = faPlusSquare;
-  faBan = faBan;
+  faUserTimes = faUserTimes;
+  faUserCheck = faUserCheck;
   faTimes = faTimes;
 
   faArrowDown = faArrowDown;
@@ -173,6 +176,21 @@ export class HomeComponent implements OnInit {
       this.userService.banOneUser(user).subscribe();
     }
     user.isBanned = true;
+  }
+
+  removeBanUser(user: User): void {
+    if(this.isAdmin(user)){
+      this.showAlert('Admin users can\'t be banned.');
+      return;
+    }
+    if(!this.isBanned(user)){
+      this.showAlert('This user is not banned.');
+      return;
+    }
+    if(this.canConsumeAdminServices){
+      this.userService.removeBanUser(user).subscribe();
+    }
+    user.isBanned = false;
   }
 
   users: User[] = [];

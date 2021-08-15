@@ -1,5 +1,12 @@
 <div>
-  <h2>Profile</h2>
+  <h2>
+    <div *ngIf="isAdmin">
+      <span >⭐</span><strong>Administrator</strong><span>⭐</span>
+    </div>
+    <div *ngIf="!isAdmin">
+      Profile
+    </div>
+  </h2>
   <div class="profile-group">
     <div class="left-group">
       <div class="img-container">

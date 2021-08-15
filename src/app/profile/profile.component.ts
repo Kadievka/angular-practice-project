@@ -64,4 +64,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  isAdmin: boolean = this.authService.isAdmin();
+
 }
