@@ -13,7 +13,10 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
     this.userService.getProfile().subscribe(profile => {
@@ -36,8 +39,6 @@ export class ProfileComponent implements OnInit {
     email: this.authService.getEmail() || this.exampleEmail,
   };
 
-  userProfileImage = "https://i.imgur.com/b6a2Zpk.png";
-
   profileForm = new FormGroup({
     nickname: new FormControl(''),
     lastName: new FormControl(''),
@@ -46,7 +47,7 @@ export class ProfileComponent implements OnInit {
     address: new FormControl(''),
   });
 
-  error = {
+  nickNameError = {
     show: false,
     message: '',
   }
@@ -55,15 +56,52 @@ export class ProfileComponent implements OnInit {
     const user = { ...this.profileForm.value };
     this.userService.updateProfile(user).subscribe(u => {
       if(u.error && u.status === 400){
-        this.error.show = true;
-        this.error.message = u.error.message;
+        this.nickNameError.show = true;
+        this.nickNameError.message = u.error.message;
       }else{
-        this.error.show = false;
+        this.nickNameError.show = false;
         this.user = {...u, email: this.authService.getEmail() || this.exampleEmail};
       }
     });
   }
 
   isAdmin: boolean = this.authService.isAdmin();
+
+  userProfileImage = "https://i.imgur.com/b6a2Zpk.png";
+
+  processFile(imageInput: any, preview: any): void {
+    const file: File = imageInput.files[0];
+    this.validateProfileImageExists(file);
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      preview.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+  }
+
+  profileImageError = {
+    show: false,
+    message: '',
+  }
+
+  validateProfileImageExists(file: File): void {
+    if(!file){
+      this.profileImageError.show = true;
+      this.profileImageError.message = 'You must to upload an image';
+      return;
+    }
+    this.profileImageError.show = false;
+  }
+
+  saveFile(imageInput: any): void {
+    const file: File = imageInput.files[0];
+    this.validateProfileImageExists(file);
+    this.userService.updateProfilePhoto(file).subscribe(response => {
+      if(response.error){
+        this.profileImageError.show = true;
+        this.profileImageError.message = response.error.message;
+      }
+    });
+  }
 
 }

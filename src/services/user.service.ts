@@ -79,4 +79,10 @@ export class UserService {
       .put<User>(`${this.mainUrl}/profile`, user, this.httpOptions)
       .pipe(catchError((error) => of(error)));
   }
+
+  updateProfilePhoto(photo: any): Observable<any> {
+    return this.http
+      .put<User>(`${this.mainUrl}/profile-photo`, photo, this.httpOptions)
+      .pipe(catchError((error) => of(error)));
+  }
 }

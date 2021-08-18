@@ -1,6 +1,6 @@
 <div>
   <h2>
-    <div *ngIf="isAdmin">
+    <div *ngIf="isAdmin" class="text-center">
       <span >⭐</span><strong>Administrator</strong><span>⭐</span>
     </div>
     <div *ngIf="!isAdmin">
@@ -9,13 +9,25 @@
   </h2>
   <div class="profile-group">
     <div class="left-group">
+      <div *ngIf="profileImageError.show" class="form-control invalid">
+        {{profileImageError.message}}
+      </div>
       <div class="img-container">
-        <img src="{{userProfileImage}}" alt="profile" class="img-thumbnail" />
+        <img #preview src="{{userProfileImage}}" alt="profile" class="img-thumbnail" />
       </div>
-      <div class="save-button">
+      <form class="form-group save-button">
+        <input
+          #imageInput
+          class="form-control"
+          id="profile-image"
+          name="profile-image"
+          type="file"
+          accept="image/*"
+          (change)="processFile(imageInput, preview)"
+        />
         <!-- TODO: consume upload image service -->
-        <button class="form-control btn btn-primary">Upload Image</button>
-      </div>
+        <button class="form-control btn btn-primary" type="button" (click)="saveFile(imageInput)">Upload Image</button>
+      </form>
     </div>
     <form class="form-group profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
       <label for="email" class="col-sm-2 control-label">Email:</label>
@@ -28,8 +40,8 @@
         value="{{user.email}}"
       />
       <label for="nickname" class="col-sm-2 control-label">Nickname:</label>
-      <div *ngIf="error.show" class="form-control invalid">
-        {{error.message}}
+      <div *ngIf="nickNameError.show" class="form-control invalid">
+        {{nickNameError.message}}
       </div>
       <input
         formControlName="nickname"
