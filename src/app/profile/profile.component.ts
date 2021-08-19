@@ -6,6 +6,8 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
+import { ProfilePhoto } from '../models/profilePhoto';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,11 +15,15 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
     this.userService.getProfile().subscribe(profile => {
       this.user = profile;
+      this.user.profilePhotoPath = profile.profilePhotoPath ? environment.MAIN_API_ENDPOINT + profile.profilePhotoPath : "https://i.imgur.com/b6a2Zpk.png";
       this.profileForm = new FormGroup({
         nickname: new FormControl(profile.nickname),
         lastName: new FormControl(profile.lastName),
@@ -34,9 +40,8 @@ export class ProfileComponent implements OnInit {
     id: '1',
     _id: '1',
     email: this.authService.getEmail() || this.exampleEmail,
+    profilePhotoPath: '',
   };
-
-  userProfileImage = "https://i.imgur.com/b6a2Zpk.png";
 
   profileForm = new FormGroup({
     nickname: new FormControl(''),
@@ -46,7 +51,7 @@ export class ProfileComponent implements OnInit {
     address: new FormControl(''),
   });
 
-  error = {
+  nickNameError = {
     show: false,
     message: '',
   }
@@ -55,15 +60,70 @@ export class ProfileComponent implements OnInit {
     const user = { ...this.profileForm.value };
     this.userService.updateProfile(user).subscribe(u => {
       if(u.error && u.status === 400){
-        this.error.show = true;
-        this.error.message = u.error.message;
+        this.nickNameError.show = true;
+        this.nickNameError.message = u.error.message;
       }else{
-        this.error.show = false;
+        this.nickNameError.show = false;
         this.user = {...u, email: this.authService.getEmail() || this.exampleEmail};
+        this.user.profilePhotoPath = u.profilePhotoPath ? environment.MAIN_API_ENDPOINT + u.profilePhotoPath : "https://i.imgur.com/b6a2Zpk.png";
       }
     });
   }
 
   isAdmin: boolean = this.authService.isAdmin();
+
+  profilePhoto: ProfilePhoto = {
+    name: '',
+    type: '',
+    size: 0,
+    file: '',
+  };
+
+  file: any = File;
+
+  processFile(imageInput: any, preview: any): void {
+    const file: File = imageInput.files[0];
+
+    this.profilePhoto.name = file.name;
+    this.profilePhoto.type = file.type;
+    this.profilePhoto.size = file.size;
+
+    this.validateProfileImageExists(file);
+
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      preview.src = reader.result;
+      this.file = reader.result;
+      this.profilePhoto.file = JSON.stringify(reader.result);
+    });
+    reader.readAsDataURL(file);
+  }
+
+  profileImageError = {
+    show: false,
+    message: '',
+  }
+
+  validateProfileImageExists(file: File | string): void {
+    if(!file){
+      this.profileImageError.show = true;
+      this.profileImageError.message = 'You must to upload an image';
+      return;
+    }
+    this.profileImageError.show = false;
+  }
+
+  saveFile(): void {
+    this.validateProfileImageExists(this.profilePhoto.file);
+    if(this.profileImageError.show){
+      return
+    }
+    this.userService.updateProfilePhoto(this.profilePhoto).subscribe(response => {
+      if(response.error){
+        this.profileImageError.show = true;
+        this.profileImageError.message = response.error.message;
+      }
+    });
+  }
 
 }

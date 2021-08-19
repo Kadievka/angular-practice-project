@@ -14,4 +14,10 @@ export interface User {
     message: string;
   }
   status?: number;
+  profilePhotoId?: string;
+  profilePhotoName?: string;
+  profilePhotoPath?: string;
+  profilePhotoType?: string;
+  profilePhotoSize?: number;
+
 }

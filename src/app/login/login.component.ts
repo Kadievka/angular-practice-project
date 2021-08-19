@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit {
       .subscribe((loginData) => {
         if (loginData.error) {
           this.authService.unauthenticate();
-          console.log(loginData);
           if(loginData.error.statusCode === 403 || loginData.error.statusCode === 400){
             this.invalidPassword = true;
           }

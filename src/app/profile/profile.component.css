@@ -8,19 +8,33 @@ h2{
   padding-top: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .profile-form{
   margin: 0px 50px 10px 50px;
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.left-group{
+.input-group{
+  width: 100%;
+  margin: 4px;
+}
+
+.profile-photo-form{
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 img{
   border-radius: inherit;
+  max-height: 300px;
 }
 
 .img-container{
@@ -41,6 +55,7 @@ img{
 }
 
 p{
+  margin-top: 20px;
   margin-left: 20px;
 }
 
@@ -48,8 +63,11 @@ p{
   .profile-group{
     flex-direction: column;
   }
-  .left-group{
+  .profile-photo-form{
     margin: 0;
+  }
+  .profile-form{
+    margin-top: 20px;
   }
 }
 
@@ -60,7 +78,7 @@ p{
 }
 
 @media(max-width: 380px){
-  .left-group{
+  .profile-photo-form{
     margin: 0;
   }
 
