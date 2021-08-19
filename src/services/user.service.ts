@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { Login } from '../app/models/login';
 import { Register } from '../app/models/register';
 import { Profile } from '../app/models/profile';
+import { ProfilePhoto } from 'src/app/models/profilePhoto';
 
 @Injectable({
   providedIn: 'root',
@@ -80,9 +81,9 @@ export class UserService {
       .pipe(catchError((error) => of(error)));
   }
 
-  updateProfilePhoto(photo: any): Observable<any> {
+  updateProfilePhoto(body: ProfilePhoto): Observable<any> {
     return this.http
-      .put<User>(`${this.mainUrl}/profile-photo`, photo, this.httpOptions)
+      .post<any>(`${this.mainUrl}/profile-photo`, body, this.httpOptions)
       .pipe(catchError((error) => of(error)));
   }
 }

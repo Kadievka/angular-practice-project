@@ -6,6 +6,7 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
+import { ProfilePhoto } from '../models/profilePhoto';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -69,12 +70,29 @@ export class ProfileComponent implements OnInit {
 
   userProfileImage = "https://i.imgur.com/b6a2Zpk.png";
 
+  profilePhoto: ProfilePhoto = {
+    name: '',
+    type: '',
+    size: 0,
+    file: '',
+  };
+
+  file: any = File;
+
   processFile(imageInput: any, preview: any): void {
     const file: File = imageInput.files[0];
+
+    this.profilePhoto.name = file.name;
+    this.profilePhoto.type = file.type;
+    this.profilePhoto.size = file.size;
+
     this.validateProfileImageExists(file);
+
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       preview.src = reader.result;
+      this.file = reader.result;
+      this.profilePhoto.file = JSON.stringify(reader.result);
     });
     reader.readAsDataURL(file);
   }
@@ -93,14 +111,18 @@ export class ProfileComponent implements OnInit {
     this.profileImageError.show = false;
   }
 
-  saveFile(imageInput: any): void {
-    const file: File = imageInput.files[0];
-    this.validateProfileImageExists(file);
-    this.userService.updateProfilePhoto(file).subscribe(response => {
+  saveFile(): void {
+    this.validateProfileImageExists(this.file);
+    if(this.profileImageError.show){
+      return
+    }
+    console.log(this.profilePhoto);
+    this.userService.updateProfilePhoto(this.profilePhoto).subscribe(response => {
       if(response.error){
         this.profileImageError.show = true;
         this.profileImageError.message = response.error.message;
       }
+      console.log(response);
     });
   }
 

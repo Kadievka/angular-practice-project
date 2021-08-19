@@ -8,7 +8,7 @@
     </div>
   </h2>
   <div class="profile-group">
-    <div class="left-group">
+    <div class="profile-photo-form">
       <div *ngIf="profileImageError.show" class="form-control invalid">
         {{profileImageError.message}}
       </div>
@@ -26,11 +26,12 @@
           (change)="processFile(imageInput, preview)"
         />
         <!-- TODO: consume upload image service -->
-        <button class="form-control btn btn-primary" type="button" (click)="saveFile(imageInput)">Upload Image</button>
+        <button class="form-control btn btn-primary" type="button" (click)="saveFile()">Upload Image</button>
       </form>
     </div>
     <form class="form-group profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-      <label for="email" class="col-sm-2 control-label">Email:</label>
+      <div class="input-group">
+        <label for="email" class="col-sm-2 control-label">Email:</label>
       <input
         class="form-control"
         type="email"
@@ -39,7 +40,10 @@
         disabled
         value="{{user.email}}"
       />
-      <label for="nickname" class="col-sm-2 control-label">Nickname:</label>
+      </div>
+
+      <div class="input-group">
+        <label for="nickname" class="col-sm-2 control-label">Nickname:</label>
       <div *ngIf="nickNameError.show" class="form-control invalid">
         {{nickNameError.message}}
       </div>
@@ -51,7 +55,10 @@
         name="nickname"
         value="{{user.nickname}}"
       />
-      <label for="firstName" class="col-sm-2 control-label">First Name:</label>
+      </div>
+
+      <div class="input-group">
+        <label for="firstName" class="col-sm-2 control-label">First Name:</label>
       <input
         formControlName="firstName"
         class="form-control"
@@ -60,7 +67,10 @@
         name="firstName"
         value="{{user.firstName}}"
       />
-      <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
+      </div>
+
+      <div class="input-group">
+        <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
       <input
         formControlName="lastName"
         class="form-control"
@@ -69,7 +79,10 @@
         name="lastName"
         value="{{user.lastName}}"
       />
-      <label for="cellphone" class="col-sm-2 control-label">Cellphone:</label>
+      </div>
+
+      <div class="input-group">
+        <label for="cellphone" class="col-sm-2 control-label">Cellphone:</label>
       <input
         formControlName="cellphone"
         class="form-control"
@@ -78,7 +91,10 @@
         name="cellphone"
         value="{{user.cellphone}}"
       />
-      <label for="address" class="col-sm-2 control-label">Address:</label>
+      </div>
+
+      <div class="input-group">
+        <label for="address" class="col-sm-2 control-label">Address:</label>
       <input
         formControlName="address"
         class="form-control"
@@ -87,8 +103,10 @@
         name="address"
         value="{{user.address}}"
       />
-      <label class="col-sm-2 control-label"></label>
-      <button class="form-control btn btn-outline-primary" type="submit">Save Changes</button>
+      </div>
+      <div class="input-group">
+        <button class="form-control btn btn-outline-primary" type="submit">Save Changes</button>
+      </div>
     </form>
   </div>
   <p>Your information is completely private, only user nickname and profile image can be shown</p>
