@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getProfile().subscribe(profile => {
       this.user = profile;
-      this.user.profilePhotoPath = environment.MAIN_API_ENDPOINT + profile.profilePhotoPath;
+      this.user.profilePhotoPath = profile.profilePhotoPath ? environment.MAIN_API_ENDPOINT + profile.profilePhotoPath : "https://i.imgur.com/b6a2Zpk.png";
       this.profileForm = new FormGroup({
         nickname: new FormControl(profile.nickname),
         lastName: new FormControl(profile.lastName),
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     id: '1',
     _id: '1',
     email: this.authService.getEmail() || this.exampleEmail,
-    profilePhotoPath: "https://i.imgur.com/b6a2Zpk.png",
+    profilePhotoPath: '',
   };
 
   profileForm = new FormGroup({
@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
       }else{
         this.nickNameError.show = false;
         this.user = {...u, email: this.authService.getEmail() || this.exampleEmail};
+        this.user.profilePhotoPath = u.profilePhotoPath ? environment.MAIN_API_ENDPOINT + u.profilePhotoPath : "https://i.imgur.com/b6a2Zpk.png";
       }
     });
   }
