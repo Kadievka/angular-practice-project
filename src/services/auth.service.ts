@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   authenticate(data: {email:string, isAdmin: boolean, jwt: string}): void {
-    console.log(data)
     const {email, isAdmin, jwt} = {...data}
     this.isAuthenticated = true;
     localStorage.setItem('kgy2ufg1', isAdmin ? 'true' : 'false');

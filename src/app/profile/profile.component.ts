@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
 import { ProfilePhoto } from '../models/profilePhoto';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -22,6 +23,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getProfile().subscribe(profile => {
       this.user = profile;
+      this.user.profilePhotoPath = environment.MAIN_API_ENDPOINT + profile.profilePhotoPath;
       this.profileForm = new FormGroup({
         nickname: new FormControl(profile.nickname),
         lastName: new FormControl(profile.lastName),
@@ -38,6 +40,7 @@ export class ProfileComponent implements OnInit {
     id: '1',
     _id: '1',
     email: this.authService.getEmail() || this.exampleEmail,
+    profilePhotoPath: "https://i.imgur.com/b6a2Zpk.png",
   };
 
   profileForm = new FormGroup({
@@ -67,8 +70,6 @@ export class ProfileComponent implements OnInit {
   }
 
   isAdmin: boolean = this.authService.isAdmin();
-
-  userProfileImage = "https://i.imgur.com/b6a2Zpk.png";
 
   profilePhoto: ProfilePhoto = {
     name: '',
@@ -102,7 +103,7 @@ export class ProfileComponent implements OnInit {
     message: '',
   }
 
-  validateProfileImageExists(file: File): void {
+  validateProfileImageExists(file: File | string): void {
     if(!file){
       this.profileImageError.show = true;
       this.profileImageError.message = 'You must to upload an image';
@@ -112,17 +113,15 @@ export class ProfileComponent implements OnInit {
   }
 
   saveFile(): void {
-    this.validateProfileImageExists(this.file);
+    this.validateProfileImageExists(this.profilePhoto.file);
     if(this.profileImageError.show){
       return
     }
-    console.log(this.profilePhoto);
     this.userService.updateProfilePhoto(this.profilePhoto).subscribe(response => {
       if(response.error){
         this.profileImageError.show = true;
         this.profileImageError.message = response.error.message;
       }
-      console.log(response);
     });
   }
 

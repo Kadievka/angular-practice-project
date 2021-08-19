@@ -21,7 +21,6 @@ export class ImageService {
   updateProfilePhoto(photo: File): Observable<any> {
     const formData = new FormData();
     formData.append('photo', photo);
-    console.log(formData.get('photo'));
     return this.http
       .put<any>(`${this.mainUrl}/profile-photo`, formData, this.httpOptions)
       .pipe(catchError((error) => of(error)));
